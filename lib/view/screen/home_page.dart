@@ -24,7 +24,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Animation<double> angle;
   late Animation position;
   late Animation opacity;
-
+  List height_witdth = [
+    120,
+    180,
+    250,
+    350,
+    450,
+    550,
+    650,
+    750,
+  ];
+  List size = [
+    25,
+    40,
+    50,
+    30,
+    60,
+    60,
+    50,
+    60,
+  ];
   @override
   void initState() {
     super.initState();
@@ -78,6 +97,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     )..forward();
 
+    neptuneanimationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        seconds: 180,
+      ),
+    )..forward();
+
     angle = Tween(
       begin: 0.0,
       end: (pi * 2).toDouble(),
@@ -104,6 +130,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         curve: Curves.easeInOut,
       ),
     );
+    earthanimationController.repeat();
+    mercuryanimationController.repeat();
+    marsanimationController.repeat();
+    saturnanimationController.repeat();
+    neptuneanimationController.repeat();
+    jupitaranimationController.repeat();
+    UranusanimationController.repeat();
+    venusanimationController.repeat();
   }
 
   @override
@@ -143,10 +177,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       height: size.height,
                       width: size.width,
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: AssetImage("assets/image/galaxy.jpg"),
-                      )),
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: AssetImage("assets/image/galaxy.jpg"),
+                        ),
+                      ),
                     ),
 
                     GestureDetector(

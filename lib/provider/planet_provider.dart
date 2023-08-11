@@ -3,19 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:galaxy_app/model/solar_system_model.dart';
+import 'package:galaxy_app/utills/my_controllers.dart';
 
 class PlanetProvider extends ChangeNotifier {
   List<Planets> AllPlanets = [];
-  List planetControllers = [
-    "mercuryanimationController",
-    "venusanimationController",
-    "earthanimationController",
-    'marsanimationController',
-    'jupitaranimationController',
-    "saturnanimationController",
-    "UranusanimationController",
-    "neptuneanimationController",
-  ];
   PlanetProvider() {
     loadJSONPLANET();
   }
@@ -24,6 +15,12 @@ class PlanetProvider extends ChangeNotifier {
         await rootBundle.loadString("assets/json/solar_system.json");
     List allplanets = jsonDecode(planets);
     AllPlanets = allplanets.map((e) => Planets.fromJson(json: e)).toList();
+    print("**********************");
+    print(AllPlanets.length);
+    print(AllPlanets[0].name);
+    print(AllPlanets[0].distance);
+    print(AllPlanets[0].image);
+    print("**********************");
   }
 }
 //{"position": "9",

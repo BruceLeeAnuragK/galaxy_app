@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/planet_provider.dart';
+import '../../utills/my_controllers.dart';
 
 class PlanetListPage extends StatefulWidget {
   const PlanetListPage({Key? key}) : super(key: key);
@@ -26,6 +27,8 @@ class _PlanetListPageState extends State<PlanetListPage>
   late Animation<double> angle;
   late Animation position;
   late Animation opacity;
+
+  late List<AnimationController> planetControllers;
 
   @override
   void initState() {
@@ -80,11 +83,18 @@ class _PlanetListPageState extends State<PlanetListPage>
       ),
     )..forward();
 
+    neptuneanimationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        seconds: 180,
+      ),
+    )..forward();
+
     angle = Tween(
       begin: 0.0,
       end: (pi * 2).toDouble(),
     ).animate(
-      animationController,
+      animationController!,
     );
 
     opacity = Tween(
@@ -92,7 +102,7 @@ class _PlanetListPageState extends State<PlanetListPage>
       end: 1.0,
     ).animate(
       CurvedAnimation(
-        parent: animationController,
+        parent: animationController!,
         curve: Curves.easeInOut,
       ),
     );
@@ -102,61 +112,146 @@ class _PlanetListPageState extends State<PlanetListPage>
       end: 0.0,
     ).animate(
       CurvedAnimation(
-        parent: animationController,
+        parent: animationController!,
         curve: Curves.easeInOut,
       ),
     );
+    planetControllers = [
+      mercuryanimationController,
+      venusanimationController,
+      earthanimationController,
+      marsanimationController,
+      jupitaranimationController,
+      saturnanimationController,
+      UranusanimationController,
+      neptuneanimationController
+    ];
+
+    earthanimationController.repeat();
+    mercuryanimationController.repeat();
+    marsanimationController.repeat();
+    saturnanimationController.repeat();
+    neptuneanimationController.repeat();
+    jupitaranimationController.repeat();
+    UranusanimationController.repeat();
+    venusanimationController.repeat();
   }
 
+  List height_witdth = [
+    120.0,
+    180.0,
+    250.0,
+    350.0,
+    450.0,
+    550.0,
+    650.0,
+    750.0,
+  ];
+
+  List sizeh_w = [
+    25.0,
+    40.0,
+    50.0,
+    30.0,
+    60.0,
+    60.0,
+    60.0,
+    60.0,
+  ];
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Consumer<PlanetProvider>(builder: (context, provider, child) {
       return Scaffold(
         appBar: AppBar(
           title: Text("List page"),
         ),
-        body: Container(
-          child: ListView(
-            children: List.generate(
-              provider.AllPlanets.length,
-              (index) => Center(
-                child: RotationTransition(
-                  turns: Tween<double>(begin: 0.0, end: (pi * 2).toDouble())
-                      .animate(provider.planetControllers[index]
-                          as AnimationController),
-                  child: Container(
-                    height: 120,
-                    width: 120,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(alignment: Alignment.center, children: [
+                  Container(
+                    height: size.height,
+                    width: size.width,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                    alignment: Alignment(0, -1.4),
-                    child: TweenAnimationBuilder(
-                      tween: Tween(begin: 0.0, end: pi * 3),
-                      duration: Duration(seconds: 30),
-                      builder: (context, val, _) {
-                        return Transform.rotate(
-                          angle: val,
-                          child: Container(
-                            height: 25,
-                            width: 25,
-                            margin: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    provider.AllPlanets[index].image),
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                      image: DecorationImage(
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage("assets/image/galaxy.jpg"),
+                      ),
                     ),
                   ),
-                ),
-              ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {});
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: TweenAnimationBuilder(
+                        tween: Tween(begin: 0.0, end: pi * 2),
+                        duration: Duration(seconds: 30),
+                        builder: (context, val, _) {
+                          return Transform.rotate(
+                            angle: val,
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              margin: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: const DecorationImage(
+                                  image: AssetImage("assets/image/sun.png"),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  ...List.generate(
+                    provider.AllPlanets.length,
+                    (index) => Center(
+                      child: RotationTransition(
+                        turns:
+                            Tween<double>(begin: 0.0, end: (pi * 2).toDouble())
+                                .animate(planetControllers[index]),
+                        child: Container(
+                          height: height_witdth[index],
+                          width: height_witdth[index],
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: Alignment(0, -1.4),
+                          child: TweenAnimationBuilder(
+                            tween: Tween(begin: 0.0, end: pi * 3),
+                            duration: Duration(seconds: 30),
+                            builder: (context, val, _) {
+                              return Transform.rotate(
+                                angle: val,
+                                child: Container(
+                                  height: sizeh_w[index],
+                                  width: sizeh_w[index],
+                                  margin: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          provider.AllPlanets[index].image),
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+              ],
             ),
           ),
         ),
