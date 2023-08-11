@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/planet_provider.dart';
-import '../../utills/my_controllers.dart';
 
 class PlanetListPage extends StatefulWidget {
   const PlanetListPage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class _PlanetListPageState extends State<PlanetListPage>
   late AnimationController saturnanimationController;
   late AnimationController UranusanimationController;
   late AnimationController neptuneanimationController;
-  late Animation<double> angle;
+  late Animation angle;
   late Animation position;
   late Animation opacity;
 
@@ -36,7 +35,7 @@ class _PlanetListPageState extends State<PlanetListPage>
     animationController = AnimationController(
       vsync: this,
       duration: Duration(
-        seconds: 120,
+        seconds: 10,
       ),
     )..forward();
     mercuryanimationController = AnimationController(
@@ -90,30 +89,33 @@ class _PlanetListPageState extends State<PlanetListPage>
       ),
     )..forward();
 
-    angle = Tween(
+    angle = Tween<double>(
       begin: 0.0,
       end: (pi * 2).toDouble(),
     ).animate(
-      animationController!,
+      animationController,
     );
-
+    animationController.repeat();
     opacity = Tween(
       begin: 0.0,
       end: 1.0,
     ).animate(
       CurvedAnimation(
-        parent: animationController!,
-        curve: Curves.easeInOut,
+        parent: animationController,
+        curve: const Interval(0.5, 1.0),
       ),
     );
 
     position = Tween(
-      begin: 500.0,
+      begin: 100.0,
       end: 0.0,
     ).animate(
       CurvedAnimation(
         parent: animationController!,
-        curve: Curves.easeInOut,
+        curve: Interval(
+          0.0,
+          0.5,
+        ),
       ),
     );
     planetControllers = [
@@ -138,9 +140,9 @@ class _PlanetListPageState extends State<PlanetListPage>
   }
 
   List height_witdth = [
-    120.0,
-    180.0,
-    250.0,
+    150.0,
+    210.0,
+    280.0,
     350.0,
     450.0,
     550.0,
@@ -165,7 +167,25 @@ class _PlanetListPageState extends State<PlanetListPage>
       builder: (context, provider, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("List page"),
+            backgroundColor: Colors.deepPurple,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("List");
+                  },
+                  icon: Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 20,
+                  ))
+            ],
+            title: Text(
+              "Galaxy App",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            centerTitle: true,
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -186,16 +206,18 @@ class _PlanetListPageState extends State<PlanetListPage>
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {});
+                          setState(() {
+                            Navigator.of(context)
+                                .pushNamed("Detail", arguments: 3);
+                          });
                         },
                         child: Container(
                           alignment: Alignment.center,
-                          child: TweenAnimationBuilder(
-                            tween: Tween(begin: 0.0, end: pi * 2),
-                            duration: Duration(seconds: 30),
-                            builder: (context, val, _) {
+                          child: AnimatedBuilder(
+                            animation: animationController,
+                            builder: (context, value) {
                               return Transform.rotate(
-                                angle: val,
+                                angle: angle.value,
                                 child: Container(
                                   height: 100,
                                   width: 100,
@@ -227,22 +249,30 @@ class _PlanetListPageState extends State<PlanetListPage>
                                 shape: BoxShape.circle,
                               ),
                               alignment: Alignment(0, -1.4),
-                              child: TweenAnimationBuilder(
-                                tween: Tween(begin: 0.0, end: pi * 3),
-                                duration: Duration(seconds: 30),
-                                builder: (context, val, _) {
+                              child: AnimatedBuilder(
+                                animation: animationController,
+                                builder: (context, value) {
                                   return Transform.rotate(
-                                    angle: val,
-                                    child: Container(
-                                      height: sizeh_w[index],
-                                      width: sizeh_w[index],
-                                      margin: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              provider.AllPlanets[index].image),
-                                          fit: BoxFit.fitHeight,
+                                    angle: angle.value,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          Navigator.of(context).pushNamed(
+                                              "Detail",
+                                              arguments: index);
+                                        });
+                                      },
+                                      child: Container(
+                                        height: sizeh_w[index],
+                                        width: sizeh_w[index],
+                                        margin: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: NetworkImage(provider
+                                                .AllPlanets[index].image),
+                                            fit: BoxFit.fitHeight,
+                                          ),
                                         ),
                                       ),
                                     ),

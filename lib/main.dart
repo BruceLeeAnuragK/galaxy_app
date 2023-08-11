@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_app/provider/planet_provider.dart';
 import 'package:galaxy_app/view/screen/home_page.dart';
 import 'package:galaxy_app/view/screen/list_of_planets.dart';
+import 'package:galaxy_app/view/screen/planet_detail_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,13 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "Detail",
       theme: ThemeData(
         useMaterial3: true,
       ),
       routes: {
         "/": (context) => HomePage(),
         "List": (context) => PlanetListPage(),
+        "Detail": (context) => PlanetDetailPage(),
       },
     );
   }

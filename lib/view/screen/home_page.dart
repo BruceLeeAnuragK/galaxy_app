@@ -149,14 +149,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           backgroundColor: Colors.deepPurple,
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("List");
-                },
-                icon: Icon(
-                  Icons.navigate_next,
-                  color: Colors.white,
-                  size: 20,
-                ))
+              onPressed: () {
+                Navigator.of(context).pushNamed("List");
+              },
+              icon: Icon(
+                Icons.navigate_next,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
           ],
           title: Text(
             "Galaxy App",
