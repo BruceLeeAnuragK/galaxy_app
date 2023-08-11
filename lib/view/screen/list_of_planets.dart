@@ -161,84 +161,49 @@ class _PlanetListPageState extends State<PlanetListPage>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Consumer<PlanetProvider>(builder: (context, provider, child) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("List page"),
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(alignment: Alignment.center, children: [
-                  Container(
-                    height: size.height,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: AssetImage("assets/image/galaxy.jpg"),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {});
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: TweenAnimationBuilder(
-                        tween: Tween(begin: 0.0, end: pi * 2),
-                        duration: Duration(seconds: 30),
-                        builder: (context, val, _) {
-                          return Transform.rotate(
-                            angle: val,
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: const DecorationImage(
-                                  image: AssetImage("assets/image/sun.png"),
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  ...List.generate(
-                    provider.AllPlanets.length,
-                    (index) => Center(
-                      child: RotationTransition(
-                        turns:
-                            Tween<double>(begin: 0.0, end: (pi * 2).toDouble())
-                                .animate(planetControllers[index]),
-                        child: Container(
-                          height: height_witdth[index],
-                          width: height_witdth[index],
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+    return Consumer<PlanetProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("List page"),
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 1200,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: AssetImage("assets/image/galaxy.jpg"),
                           ),
-                          alignment: Alignment(0, -1.4),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
                           child: TweenAnimationBuilder(
-                            tween: Tween(begin: 0.0, end: pi * 3),
+                            tween: Tween(begin: 0.0, end: pi * 2),
                             duration: Duration(seconds: 30),
                             builder: (context, val, _) {
                               return Transform.rotate(
                                 angle: val,
                                 child: Container(
-                                  height: sizeh_w[index],
-                                  width: sizeh_w[index],
+                                  height: 100,
+                                  width: 100,
                                   margin: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          provider.AllPlanets[index].image),
+                                    image: const DecorationImage(
+                                      image: AssetImage("assets/image/sun.png"),
                                       fit: BoxFit.fitHeight,
                                     ),
                                   ),
@@ -248,14 +213,54 @@ class _PlanetListPageState extends State<PlanetListPage>
                           ),
                         ),
                       ),
-                    ),
+                      ...List.generate(
+                        provider.AllPlanets.length,
+                        (index) => Center(
+                          child: RotationTransition(
+                            turns: Tween<double>(
+                                    begin: 0.0, end: (pi * 2).toDouble())
+                                .animate(planetControllers[index]),
+                            child: Container(
+                              height: height_witdth[index],
+                              width: height_witdth[index],
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              alignment: Alignment(0, -1.4),
+                              child: TweenAnimationBuilder(
+                                tween: Tween(begin: 0.0, end: pi * 3),
+                                duration: Duration(seconds: 30),
+                                builder: (context, val, _) {
+                                  return Transform.rotate(
+                                    angle: val,
+                                    child: Container(
+                                      height: sizeh_w[index],
+                                      width: sizeh_w[index],
+                                      margin: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              provider.AllPlanets[index].image),
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
