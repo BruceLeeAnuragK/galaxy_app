@@ -90,4 +90,4 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-<img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/1937d628-60e8-424f-9735-74a25ae74e1f" height="200>
+<img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/1937d628-60e8-424f-9735-74a25ae74e1f" height="200">
