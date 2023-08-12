@@ -238,16 +238,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             builder: (context, val, _) {
                               return Transform.rotate(
                                 angle: val,
-                                child: Container(
-                                  height: 25,
-                                  width: 25,
-                                  margin: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/image/mercury.png"),
-                                      fit: BoxFit.fitHeight,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      print("-----Start----");
+                                      Navigator.of(context)
+                                          .pushNamed('Detail', arguments: 0);
+                                      print("-----end----");
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 25,
+                                    width: 25,
+                                    margin: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/image/mercury.png"),
+                                        fit: BoxFit.fitHeight,
+                                      ),
                                     ),
                                   ),
                                 ),

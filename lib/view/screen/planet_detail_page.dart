@@ -161,7 +161,7 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    // int indexData = ModalRoute.of(context)!.settings.arguments as int;
+    int indexData = ModalRoute.of(context)!.settings.arguments as int;
     return Consumer<PlanetProvider>(
       builder: (context, provider, child) {
         return Scaffold(
@@ -217,8 +217,10 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
                               opacity: opacity.value,
                               child: Column(
                                 children: [
-                                  Text("${provider.AllPlanets[0].name}"),
-                                  Text("${provider.AllPlanets[0].description}"),
+                                  Text(
+                                      "${provider.AllPlanets[indexData].name}"),
+                                  Text(
+                                      "${provider.AllPlanets[indexData].description}"),
                                 ],
                               ),
                             ),
