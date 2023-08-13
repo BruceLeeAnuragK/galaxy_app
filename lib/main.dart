@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_app/provider/planet_provider.dart';
+import 'package:galaxy_app/view/screen/Info_List%20_of_page.dart';
 import 'package:galaxy_app/view/screen/home_page.dart';
 import 'package:galaxy_app/view/screen/list_of_planets.dart';
 import 'package:galaxy_app/view/screen/planet_detail_page.dart';
@@ -25,14 +26,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
+      initialRoute: "splash_screen",
       theme: ThemeData(
         useMaterial3: true,
       ),
       routes: {
-        "/": (context) => HomePage(),
-        "List": (context) => PlanetListPage(),
+        "splash_screen": (context) => SplashScreen(),
+        "/": (context) => PlanetListPage(),
         "Detail": (context) => PlanetDetailPage(),
+        "Info_List_of_page": (context) => InfoListPage(),
       },
     );
   }

@@ -102,7 +102,7 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
     ).animate(
       animationController,
     );
-    animationController.repeat();
+    animationController.forward();
     positionanimationController.forward();
     opacity = Tween(
       begin: 0.0,
@@ -188,7 +188,7 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
             child: Column(
               children: [
                 AnimatedBuilder(
-                  animation: animationController,
+                  animation: planetControllers[indexData],
                   builder: (context, child) {
                     return Container(
                       height: 300,
@@ -202,7 +202,7 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
                                   width: double.infinity,
                                   height: 300,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey,
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.vertical(
                                       bottom: Radius.circular(10),
                                     ),
@@ -217,11 +217,94 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
                               opacity: opacity.value,
                               child: Column(
                                 children: [
-                                  Text(
-                                      "${provider.AllPlanets[indexData].name}"),
-                                  Text(
-                                      "${provider.AllPlanets[indexData].description}"),
+                                  AnimatedBuilder(
+                                    animation: animationController,
+                                    builder: (context, value) {
+                                      return Transform.rotate(
+                                        angle: angle.value,
+                                        child: Container(
+                                          height: 200,
+                                          width: 200,
+                                          margin: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: NetworkImage(provider
+                                                  .AllPlanets[indexData].image),
+                                              fit: BoxFit.fitHeight,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                AnimatedBuilder(
+                  animation: animationController,
+                  builder: (context, child) {
+                    return Container(
+                      height: 300,
+                      child: Stack(
+                        children: [
+                          ListView(
+                            children: [
+                              Transform.translate(
+                                offset: Offset(0, position.value),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 300,
+                                  decoration: BoxDecoration(
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                        offset: Offset(3, 3),
+                                        spreadRadius: 10,
+                                        color: Colors.deepPurple,
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Transform.translate(
+                            offset: Offset(0, position.value),
+                            child: Opacity(
+                              opacity: opacity.value,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        "${provider.AllPlanets[indexData].name}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        "${provider.AllPlanets[indexData].description}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

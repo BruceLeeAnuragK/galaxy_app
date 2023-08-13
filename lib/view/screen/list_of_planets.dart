@@ -167,17 +167,28 @@ class _PlanetListPageState extends State<PlanetListPage>
       builder: (context, provider, child) {
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new_outlined,
+                color: Colors.white,
+                size: 20,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
             backgroundColor: Colors.deepPurple,
             actions: [
               IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("List");
-                  },
-                  icon: Icon(
-                    Icons.navigate_next,
-                    color: Colors.white,
-                    size: 20,
-                  ))
+                onPressed: () {
+                  Navigator.of(context).pushNamed("Info_List_of_page");
+                },
+                icon: Icon(
+                  Icons.list,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
             ],
             title: Text(
               "Galaxy App",
@@ -206,10 +217,12 @@ class _PlanetListPageState extends State<PlanetListPage>
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            Navigator.of(context)
-                                .pushNamed("Detail", arguments: 3);
-                          });
+                          setState(
+                            () {
+                              Navigator.of(context)
+                                  .pushNamed("Detail", arguments: 3);
+                            },
+                          );
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -241,51 +254,47 @@ class _PlanetListPageState extends State<PlanetListPage>
                           child: RotationTransition(
                             turns: Tween<double>(
                                     begin: 0.0, end: (pi * 2).toDouble())
-                                .animate(planetControllers[index]),
-                            child: GestureDetector(
-                              onTap: () {
-                                print("-----Start----");
-                                Navigator.of(context)
-                                    .pushNamed('Detail', arguments: index);
-                                print("-----end----");
-                              },
-                              child: Container(
-                                height: height_witdth[index],
-                                width: height_witdth[index],
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: Alignment(0, -1.4),
-                                child: AnimatedBuilder(
-                                  animation: animationController,
-                                  builder: (context, value) {
-                                    return Transform.rotate(
-                                      angle: angle.value,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
+                                .animate(
+                              planetControllers[index],
+                            ),
+                            child: Container(
+                              height: height_witdth[index],
+                              width: height_witdth[index],
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              alignment: Alignment(0, -1.4),
+                              child: AnimatedBuilder(
+                                animation: animationController,
+                                builder: (context, value) {
+                                  return Transform.rotate(
+                                    angle: angle.value,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(
+                                          () {
                                             Navigator.of(context).pushNamed(
-                                                "Detail",
-                                                arguments: index);
-                                          });
-                                        },
-                                        child: Container(
-                                          height: sizeh_w[index],
-                                          width: sizeh_w[index],
-                                          margin: const EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                              image: NetworkImage(provider
-                                                  .AllPlanets[index].image),
-                                              fit: BoxFit.fitHeight,
-                                            ),
+                                              "Detail",
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        height: sizeh_w[index],
+                                        width: sizeh_w[index],
+                                        margin: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: NetworkImage(provider
+                                                .AllPlanets[index].image),
+                                            fit: BoxFit.fitHeight,
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
