@@ -176,10 +176,15 @@ class _InfoListPageState extends State<InfoListPage>
               ),
             ),
             centerTitle: true,
-            leading: Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-              size: 20,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_new_sharp,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
           body: ListView.builder(
