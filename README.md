@@ -93,11 +93,15 @@ samples, guidance on mobile development, and a full API reference.
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/82a9f71b-00c0-4be6-8235-d4c73d6a3036" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/b1d6a69a-d5bd-4f6e-82e6-bc3a579a8479" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/cf824b31-4c39-4113-8f33-00c7343f184b" height="200">
+https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/a4e009f9-1b39-4298-9b27-42d0d4292c99
+
+
+
+
+
+
+
+
 Uploading 0da6c1eb-e938-41fb-ad4d-4287008c6c2c.mp4…
-
-
-
-
-
 
 
