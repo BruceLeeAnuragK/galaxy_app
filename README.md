@@ -86,10 +86,6 @@ Project Evaluation:
 - Quality of code and project structure
 - Presentation quality and clarity of communication
 samples, guidance on mobile development, and a full API reference.
-
-
-
-
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/02747da7-b3f4-4e70-891b-8ba83922819d" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/1937d628-60e8-424f-9735-74a25ae74e1f" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/39c02c57-1714-4841-a527-2e2895f2d9db" height="200">
@@ -97,6 +93,7 @@ samples, guidance on mobile development, and a full API reference.
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/82a9f71b-00c0-4be6-8235-d4c73d6a3036" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/b1d6a69a-d5bd-4f6e-82e6-bc3a579a8479" height="200">
 <img src="https://github.com/BruceLeeAnuragK/galaxy_app/assets/113960212/cf824b31-4c39-4113-8f33-00c7343f184b" height="200">
+Uploading 0da6c1eb-e938-41fb-ad4d-4287008c6c2c.mp4…
 
 
 
