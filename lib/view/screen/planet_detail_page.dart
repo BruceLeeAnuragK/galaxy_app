@@ -159,6 +159,21 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    animationController.dispose();
+    mercuryanimationController.dispose();
+    venusanimationController.dispose();
+    earthanimationController.dispose();
+    marsanimationController.dispose();
+    jupitaranimationController.dispose();
+    saturnanimationController.dispose();
+    UranusanimationController.dispose();
+    neptuneanimationController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int indexData = ModalRoute.of(context)!.settings.arguments as int;
     return Consumer<PlanetProvider>(

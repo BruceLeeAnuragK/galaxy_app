@@ -23,12 +23,11 @@ class SharePrefProvider with ChangeNotifier {
     String retrieved = prefs.getString(key) ?? "";
     print("Planet $key retrieved: $retrieved");
     storedPlanet = retrieved;
-
     notifyListeners();
   }
 
-  Future<void> clearPlanet() async {
-    await prefs.clear();
+  Future<void> clearPlanet({required String key}) async {
+    await prefs.remove(key);
     print("Planets cleared");
     notifyListeners();
   }

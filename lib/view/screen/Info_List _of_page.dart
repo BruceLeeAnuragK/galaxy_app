@@ -111,7 +111,7 @@ class _InfoListPageState extends State<InfoListPage>
       end: 0.0,
     ).animate(
       CurvedAnimation(
-        parent: animationController!,
+        parent: animationController,
         curve: const Interval(
           0.0,
           0.5,
@@ -207,11 +207,6 @@ class _InfoListPageState extends State<InfoListPage>
                   Navigator.of(context).pushNamed("bookmark_screen");
                   Provider.of<SharePrefProvider>(context, listen: false)
                       .retrievePlanet(key: provider.key);
-                  Provider.of<SharePrefProvider>(context, listen: false)
-                      .StroredPlanetsList
-                      .add(
-                          Provider.of<SharePrefProvider>(context, listen: false)
-                              .storedPlanet);
                 },
                 icon: const Icon(
                   Icons.bookmark,
@@ -259,10 +254,40 @@ class _InfoListPageState extends State<InfoListPage>
                 trailing: IconButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed("Detail", arguments: index);
-                    Provider.of<SharePrefProvider>(context, listen: false)
-                        .savePlanet(
-                            key: provider.key,
-                            planets: provider.AllPlanets[index].name);
+
+                    if (Provider.of<SharePrefProvider>(context, listen: false)
+                        .StroredPlanetsList
+                        .contains(Provider.of<SharePrefProvider>(context,
+                                listen: false)
+                            .storedPlanet)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Planet Already Stored",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      Provider.of<SharePrefProvider>(context, listen: false)
+                          .savePlanet(
+                              key: provider.key,
+                              planets: provider.AllPlanets[index].name);
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                        "Planet Stored ${provider.AllPlanets[index].name}",
+                      )));
+                      Provider.of<SharePrefProvider>(context, listen: false)
+                          .StroredPlanetsList
+                          .add(Provider.of<SharePrefProvider>(context,
+                                  listen: false)
+                              .storedPlanet);
+                    }
                   },
                   icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
