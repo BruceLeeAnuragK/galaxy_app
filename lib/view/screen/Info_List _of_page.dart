@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:galaxy_app/provider/shared_preferences_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/planet_provider.dart';
@@ -26,7 +27,6 @@ class _InfoListPageState extends State<InfoListPage>
   late Animation angle;
   late Animation position;
   late Animation opacity;
-
   late List<AnimationController> planetControllers;
 
   @override
@@ -34,57 +34,57 @@ class _InfoListPageState extends State<InfoListPage>
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 10,
       ),
     )..forward();
     mercuryanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 40,
       ),
     )..forward();
     venusanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 60,
       ),
     )..forward();
     earthanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 80,
       ),
     )..forward();
     marsanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 100,
       ),
     )..forward();
 
     jupitaranimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 120,
       ),
     )..forward();
     saturnanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 140,
       ),
     )..forward();
     UranusanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 160,
       ),
     )..forward();
 
     neptuneanimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 180,
       ),
     )..forward();
@@ -112,7 +112,7 @@ class _InfoListPageState extends State<InfoListPage>
     ).animate(
       CurvedAnimation(
         parent: animationController!,
-        curve: Interval(
+        curve: const Interval(
           0.0,
           0.5,
         ),
@@ -137,6 +137,21 @@ class _InfoListPageState extends State<InfoListPage>
     jupitaranimationController.repeat();
     UranusanimationController.repeat();
     venusanimationController.repeat();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    animationController.dispose();
+    mercuryanimationController.dispose();
+    venusanimationController.dispose();
+    earthanimationController.dispose();
+    marsanimationController.dispose();
+    jupitaranimationController.dispose();
+    saturnanimationController.dispose();
+    UranusanimationController.dispose();
+    neptuneanimationController.dispose();
   }
 
   List height_witdth = [
@@ -168,7 +183,7 @@ class _InfoListPageState extends State<InfoListPage>
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.deepPurple,
-            title: Text(
+            title: const Text(
               "List Of Planet",
               style: TextStyle(
                 color: Colors.white,
@@ -180,12 +195,31 @@ class _InfoListPageState extends State<InfoListPage>
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_ios_new_sharp,
                 color: Colors.white,
                 size: 20,
               ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed("bookmark_screen");
+                  Provider.of<SharePrefProvider>(context, listen: false)
+                      .retrievePlanet(key: provider.key);
+                  Provider.of<SharePrefProvider>(context, listen: false)
+                      .StroredPlanetsList
+                      .add(
+                          Provider.of<SharePrefProvider>(context, listen: false)
+                              .storedPlanet);
+                },
+                icon: const Icon(
+                  Icons.bookmark,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ],
           ),
           body: ListView.builder(
             itemCount: provider.AllPlanets.length,
@@ -216,7 +250,7 @@ class _InfoListPageState extends State<InfoListPage>
                   padding: const EdgeInsets.all(30),
                   child: Text(
                     "${provider.AllPlanets[index].name}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.deepPurple,
                       fontSize: 20,
                     ),
@@ -225,8 +259,12 @@ class _InfoListPageState extends State<InfoListPage>
                 trailing: IconButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed("Detail", arguments: index);
+                    Provider.of<SharePrefProvider>(context, listen: false)
+                        .savePlanet(
+                            key: provider.key,
+                            planets: provider.AllPlanets[index].name);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward_ios_outlined,
                     color: Colors.deepPurple,
                     size: 30,

@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:galaxy_app/model/solar_system_model.dart';
-import 'package:galaxy_app/utills/my_controllers.dart';
 
 class PlanetProvider extends ChangeNotifier {
   List<Planets> AllPlanets = [];
+  String key = "planets";
+  String retrivedplantes = "";
   PlanetProvider() {
     loadJSONPLANET();
   }

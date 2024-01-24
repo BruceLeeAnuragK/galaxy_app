@@ -161,6 +161,21 @@ class _PlanetListPageState extends State<PlanetListPage>
     60.0,
   ];
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    animationController.dispose();
+    mercuryanimationController.dispose();
+    venusanimationController.dispose();
+    earthanimationController.dispose();
+    marsanimationController.dispose();
+    jupitaranimationController.dispose();
+    saturnanimationController.dispose();
+    UranusanimationController.dispose();
+    neptuneanimationController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Consumer<PlanetProvider>(

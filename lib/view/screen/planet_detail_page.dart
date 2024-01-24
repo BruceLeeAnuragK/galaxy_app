@@ -27,7 +27,6 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
   late Animation position;
   late Animation bannerposition;
   late Animation opacity;
-
   late List<AnimationController> planetControllers;
 
   @override
@@ -117,7 +116,7 @@ class _PlanetDetailPageState extends State<PlanetDetailPage>
       ),
     );
     bannerposition = Tween(
-      begin: -150,
+      begin: -150.0,
       end: 0.0,
     ).animate(
       CurvedAnimation(
